@@ -301,10 +301,247 @@ if(!empty($var3)) {// "!" pour NOT qui est une négation.Ainsi quand on a !true 
 //---------
 // PHP7 : Afficher une variable sous condition d'existence avec l'operateur "??"
 
-echo $maVar ?? 'valeur par défaut';
+echo $maVar ?? 'valeur par défaut'; // on affiche la variable $maVar si elle existe,sinon on affiche le string qui suit.
+//Exemple d'utilisation : pour laisser les valeurs saisies dans un formulaire.
 
 
+//-------------------------
+echo '<h2> switch </h2>';
 
+//-------------------------
+//La condition switch est une autre syntaxe pour écrire un if....elseif...else quand on veut comparer une variable à une multitude de valeurs.
+
+$langue = 'chinois';
+
+switch ($langue){
+    case 'français'://on compare $langue à la valeur des "case" et on éxécute le code qui suit si elle correspond:
+        echo 'Bonjour !';
+    break; //est obligatoire pour quitter le switch une fois un case éxecuté.
+    case 'italien':
+        echo 'Ciao !';
+    break;
+    case 'espagnol':
+        echo 'Hola !';
+    break;
+    default://on tombe dans le cas par defaut si on entre pas dans le case précédent
+    echo 'Hello ! <br>';
+    break;  
+    
+}
+
+//Exercice:vous réécrivze ce switch avec des if ....pour obtenir exactement le meme resultat.
+
+
+if($langue == 'français') {
+    echo 'bonjour !';
+
+}
+elseif ($langue == 'espagnol'){
+    echo 'helo ! <br>';
+}
+elseif($langue == ' italien'){
+    echo 'Ciao ! <br>';
+}
+else {
+    echo 'Hello !<br> ';
+}
+
+
+//--------------------------------------
+echo '<h2> Fonctions prédéfinies </h2>';
+
+//--------------------------------------
+//Une fonction prédéfinie permet de réaliser un traitement spécifique prédéterminé dans le langage PHP.
+
+//----------
+// strpos():veut dire la position d'un string
+
+$email1 = 'prenom@site.fr';
+echo strpos($email1, '@');//strpos()indique la position 6 du caractere '@' dans la chaine $email1 (on compte a partir de 0).
+
+echo '<br>';
+$email2 = 'samia';
+echo strpos ($email2, '@');
+var_dump(strpos($email2, '@'));//Grace au var_dump on aperçoit que la fonction retourne FALSE car le caractere "@" n'est pas trouvé dans $email2.Notez que quand on fait un echo de false,cela n'affiche rien dans le navigateur.var_dump est une instruction d'affichage améliorée que l'on utilise quand on developpe,puis qu'on retire.
+echo '<br>';
+//------------
+//strlen() donne la longueur de chaine de caractere
+
+$phrase = 'mettez une phrase ici';
+echo strlen($phrase); //strlen()permet de retourner la taille de la chaine de caractère (nombre d'octets occupés,un caractère accentué valant 2 octets,et un espace 1 octet).
+echo '<br>';
+//------------
+//substr() sous string(la partie intérieur du string)
+
+$texte = 'Vous mettez ici un tres long texte Vous mettez ici un tres long texte Vous mettez ici un tres long texte Vous mettez ici un tres long texte Vous mettez ici un tres long texte Vous mettez ici un tres long texte Vous mettez ici un tres long texte Vous mettez ici un tres long texte Vous mettez ici un tres long texte Vous mettez ici un tres long texte ';
+echo substr($texte, 0, 20) . '...<a href="#"> lire la suite </a>';//Coupe une partie du texte,en partant de la position 0 ici et sur 20 octets.
+
+//--------------------------------------
+echo '<h2> Fonctions utulisateurs </h2>';
+
+//--------------------------------------
+//Des fonctions sont des morceaux de codes écrit dans des accolades et portant un nom.On appelle une fonction au besoin pour exécuter le code qui s'y trouve.
+
+// Il est d'usage de créer des fonctions pour ne pas se répéter quand on veut exécuter plusieurs fois le même traitement .On parle alors de "factoriser " son code.
+
+function separation (){ // On déclare une fonction avec le mot clé function suivi du nom de la fonction et d'une paire de parenthèses()qui accueillerons des paramètres ultérieurement.
+    echo '<hr>';
+}
+separation(); // Pour exécuter une fonction (donc le code qui s'y trouve),on l'appelle en écrivant son nom suivi d'une paire de parenthèses().
+
+//--------
+// Fonction avec paramètres et return:
+function bonjour($prenom, $nom){ // $prenom et $nom sont les paramètres de notre fonction.Ils permettent de recevoir une valeur car il s'agit de variables de réception.
+    return 'Bonjour '  . $prenom  . ' '  .  $nom . ' ! <br>'; // RETURN permet de sortir la phrase "Bonjour..." de la fonction et de la renvoyer à l'endroit ou la fonction est appelée.
+}
+echo bonjour('John', 'Doe'); //Si la fonction attend des valeurs,il faut obligatoirement les lui donner,et dans le même ordre que les paramètres.Ces valeurs s'appellent des arguments.Ici on met un echo car la fonction nous retourne la phrase mais ne l'affiche pas directement.
+
+// On peut remplacer les arguments par des variables (provenant d'un formulaire par exemple):
+$prenom = 'Pierre';
+$nom = 'Giraud';
+echo bonjour ($prenom , $nom); // Ici les 2 arguments sont variables et peuvent recevoir n'importe quelle valeur.
+
+//Exercice:vous écrivez une fonction qui multiplie un nombre 1 par un nombre 2fournis lors de l'appel .Cette fonction retourne le résultat de la multiplication.Vous affichez le résultat.
+
+function multiplication($chiffre1, $chiffre2){
+    return 'resultat  de :  ' . $chiffre1 . ' multiplié par ' . $chiffre2  .  ' est de ' . $chiffre1  *  $chiffre2  .  '. <br>';
+
+}
+
+$chiffre1 = 2;
+$chiffre2 = 3;
+echo multiplication ($chiffre1, $chiffre2);
+echo '<br> <br> <br> <br> <br> <br>';
+
+
+//----------------------------------------------------
+echo '<h2> Variable locale et variable globale </h2>';
+
+//-----------------------------------------------------
+//-------------------------
+// Aller de l'espace local à l'espace global:
+function jourSemaine(){
+    $jour = 'Mardi'; // Ici nous nous trouvons dans l'espace local de la fonction .Cette variable est donc dite "locale".
+    return $jour; // return permet de sortir une valeur de la fonction.
+}
+//echo $jour; // on ne peut pas accéder à cette variable ici car elle n'est connu qu'à l'interieur de la fonction jourSemaine().
+echo jourSemaine (); // on récupère la valeur "mardi" grâce au return en fin de la fonction.
+echo '<br>';
+//----------------------
+// Aller de l'espace global vers l'espace local:
+$pays = 'France'; // Ici nous nous trouvons dans l'espace global.Cette variable est donc dite "globale".
+function affichePays() {
+    global $pays; // global permet d'aller chercher la variable $pays à l'exterieur de la fonction pour pouvoir l'exploiter à l'interieur.
+    echo  $pays; // affiche France.
+}
+affichePays();
+
+
+//----------------------------------------------------
+echo '<h2> Structure itératives : les boucles </h2>';
+
+//-----------------------------------------------------
+// Les boucles sont destinées à répeter du code de façon automatique.
+
+//Boucle While :
+$i = 0;// valeur de départ de la boucle
+while ($i < 3){ // tant que $i est inferieur à 3,on entre dans la boucle.
+    echo $i . '----'; //affiche "0---1---2---".
+    $i++;// On oublie pas d'incrémenter la variable $i pour que la condition d'entrée devienne fausse à un moment donné (évite les boucles infinies).
+}
+
+//Exercice: à l'aide d'une boucle while,vous affichez les années de 1920 à 2020 dans menu déroulant.
+
+// $i = 1920;
+// echo '<select>';
+// while($i < 2020){
+//     echo '<option> '. $i. '</option>';
+//     $i++ ;
+// }
+// echo '</select>';
+
+echo '<br>';
+
+
+// $annee = 1920; //point de départ de la boucle
+// echo '<select>';
+// while($annee <= 2020){
+//     echo '<option>' .  $annee;. '</option>';
+//     $annee++;
+// }
+// echo '</select>';
+
+
+$i = 2020;
+echo '<select>';
+while($i > 1919){
+    echo '<option> '. $i. '</option>';
+    
+    $i-- ;
+}
+echo '</select>';
+
+echo '<br>';
+
+
+//-----------
+// La boucle do while :
+//La boucle do while a la particularité de s'exécuter au moins une fois,puis tant que la condition de fin est vraie.
+
+$j=0; // Valeur de depart de la boucle.
+
+do {
+    echo 'Je fais un tour de boucle <br>';
+    $j++;
+
+}while ($j > 10);// La condition renvoie false tout de suite ,pourtant la boucle à bien tourné une fois .Attention au ";" après le while.
+
+echo '<br>';
+
+//-----------
+// La boucle for :
+// La boucle for est une autre syntaxe de la boucle while.
+
+for($i = 0; $i < 3; $i++){ // on trouve dans les parenthèses () de la for : La valeur de départ;la condition d'entrée dans la boucle;La variation de $i (incrémentation, décrémentation).
+    echo $i . '----';
+}
+
+echo '<br>';
+
+
+for ($i = 0; $i < 20; $i+=5){
+    echo $i . '---';
+}
+echo '<br>';
+
+//Exercice:Affichez les mois de 1 a 12 à l'aide d'une boucle for dans un menu déroulant.
+
+echo '<select>';
+    for($mois = 1; $mois < 13; $mois++){
+        echo '<option>' . $mois . '</ option>';
+    }
+    echo '</select>';
+
+    echo '<br>';
+
+
+echo '<form>';
+    echo '<label>Mois de naissance</label>';
+
+        
+echo '<select>';
+for($jour = 1; $jour < 8; $jour++){
+    echo '<option>' . $jour . '</ option>';
+}
+echo '</select>';
+echo '<input type="submit">';
+
+echo '</form>';
+
+echo '<br>';
+
+
+ 
 
 
 
