@@ -4,8 +4,12 @@
         border-bottom:1px solid navy;
         color:navy;
     }
-
-    
+    table, td {
+    border-collapse:collapse;
+    border:1px solid black;
+    padding:20px;
+ }
+ 
 </style>
 
 <?php
@@ -438,7 +442,7 @@ affichePays();
 
 
 //----------------------------------------------------
-echo '<h2> Structure itératives : les boucles </h2>';
+echo '<h2> Structure intéractives : les boucles </h2>';
 
 //-----------------------------------------------------
 // Les boucles sont destinées à répeter du code de façon automatique.
@@ -539,6 +543,234 @@ echo '<input type="submit">';
 echo '</form>';
 
 echo '<br>';
+
+//1- faire une boucle for qui affiche 0 à 9 sur la même ligne 
+//2- puis vous compléter la boucle précédente,pour mettre les chiffres dans une table HTML.Vous y mettrez une bordure en CSS.
+// correction exercice 1 : faire des tableau avec des chiffres. (PHP) et (HTML).
+?>
+<table>
+<tr>
+<?php
+
+for($i = 0; $i < 10; $i++){
+    echo '<td>' . $i . '</td>' ;
+}
+?>
+</tr>
+</table>
+
+<?php
+
+echo'<br>';
+// correction 2 (tout php):
+
+echo '<table>';
+    echo '<tr>';
+        for ($chiffre =0; $chiffre <10; $chiffre++){
+            echo '<td>'. $chiffre . '</td>';
+        }
+        echo '</tr>';
+    echo '</table>';
+
+
+//-------------------------------------
+echo '<h2> Les tableaux (array) </h2>';
+
+//-------------------------------------
+//Un tableau appelé array en anglais,est une variable améliorée dans laquelle on stocke une multitudes de valeurs.Ces valeurs peuvent etre de n'importe quel type.Elles possèdent un indice dont la numerotation commence à 0.
+
+// Déclarer un array (mèthode 1):
+
+$liste =array('Grégoire','Nathalie','Emilie','François', 'Georges'); // Les valeurs sont séparées par une virgule.
+
+// echo $liste; //Ne jamais utilisé cette syntaxe car mauvaise on ne peut pas traduire un (array)en (string) en PHP.
+
+echo'<pre>';
+    var_dump($liste); // Affiche le contenu du tableau avec les types 
+echo'</pre>';
+
+echo'<pre>';
+    print_r($liste);// Affiche le tableau sans les types
+echo'</pre>';// <pre> est une balise HTML qui permet de formater le texte.
+
+//Pour notre besoin nous créons notre fonction personnelle d'affichage:
+
+function debug($var){
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
+}
+
+debug($liste);
+
+//Autre façon de déclarer un array (méthode 2):
+
+$tab = ['France','Italie','Espagne','Portugal'];
+//Indices   0     1     2     3  
+
+echo $tab[1] . '<br>'; // pour afficher une valeur du tableau on ecrit son indice dans une paire de crochets apres le nom du tableau.Ici affiche Italie.
+
+// Ajouter une valeur à la fin d'un tableau:
+
+$tab [] = 'Suisse'; // Les crochets vide signifient qu'on ajoute une valeur à la fin du tableau $tab.
+debug($tab);// Pour vérifier que la valeur "Suisse" est présente.
+
+//------------------
+// Les tableaux associatifs:
+// Dans un tableau associatif,nous pouvons choisir le nom des indices.
+$couleur = array(
+    'b'=> 'bleu',
+    'r'=> 'rouge',
+    'v'=> 'vert'
+);
+
+//pour afficher une valeur de notre tableau associatif:
+    echo 'La premiere couleur du tableau est ' . $couleur['b'] . '.<br>';
+    echo "La premiere couleur du tableau est  $couleur[b] <br>";// Quand un tableau associatif est écrit dans des guillemets ou des quotes il perd les quotes autour de son indice.
+
+
+debug($couleur);
+
+// Compter le nombre d'élément contenu dans un tableau:
+echo 'Nombre de valeurs dans le tableau:' .count($couleur) . '<br>'; // Sa affiche 3.
+echo 'Nombre de valeurs dans le tableau:' .sizeof($couleur) . '<br>'; // Sa affiche 3 aussi car sizeof()fait la meme chose que count()dont il est un alias.
+
+
+//-------------------------------------
+echo '<h2> La boucle foreach </h2>';
+//-------------------------------------
+// foreach est un moyen simple de passer en revue un tableau de façon automatique.Cette boucle ne fonctionne que sur les tableaux et les objets.
+
+debug($tab);// Pour voir le tableau à parcourir.
+
+
+foreach ($tab as $pays){ //on parcour le tableau $tab par ses valeurs.La variables $pays prens les valeurs du tableau successivement à chaque tour de boucle .Le mot clé "as" fait partie de la syntaxe,il est obligatoire.
+    echo '<div>' .  $pays . '</div>' . '<br>';
+
+}
+echo '<hr>';
+
+//La boucle foreach pour parcourir les INDICES et les VALEURS:
+
+    foreach($tab as $indice => $pays){ // Quand il y a 2 variables apres "as" celle de gauche parcours les indices et celle de droite parcours les valeurs.(quel que soit leur noms).
+        echo 'indice ' . $indice . ' correspond à ' . $pays . '<br>';
+
+    }
+
+// Vous declarez un tableau associatif avec les indices prenom,nom,email et telephone et vous y mettez les valeurs correspondant à un seul contact.Puis avec une boucle foreach ,vous affichez les valeurs dans des <p<,sauf le prenom qui doit etre dans un <h3>.
+
+$renseignement = array(
+    'prenom'=> 'John',
+    'nom'=> 'Doe',
+    'email'=> 'john.doe@hotmail.fr',
+    'telephone'=> '01 48 25 41 54 '
+);
+debug($renseignement);
+
+foreach($renseignement as $indice => $valeur){
+    if ($indice == 'prenom'){
+        echo '<h3>' . ' bonjour ' .  $valeur  . ' ! </h3>' ;
+       
+
+    }else {
+        echo '<p>' . $valeur . '</p>' ;
+    }  
+}
+
+
+//-------------------------------------------
+echo '<h2> Tableau multidimensionnel </h2>';
+//-------------------------------------------
+//On parle de tableau multidimensionnel quand un tableau est contenu dans un autre tableau.Chaque tableau représente une dimension.
+
+// Création d'un tableau multidimensionnel :
+$tab_multi = array(
+    0 => array (
+        'prenom'=> 'Julien',
+        'nom' => 'Dupont',
+        'telephone' => '0148444758'
+    ),
+    1 => array(
+        'prenom'=>'Nicolas',
+        'nom' => 'Durant',
+        'telephone' => '0112458985'
+    ),
+    2 => array(
+        'prenom'=> 'Pierre',
+        'nom'=> 'Dulac',
+        
+    ),
+
+);
+debug($tab_multi);
+// debug($tab_multi [0]);cette formule affiche le premier sous tableau (Ici en rouge).
+
+// Afficher la valeur "Julien" de $tab_multi:
+
+echo $tab_multi[0]['prenom'];// Pour afficher Julien nous entrons d'abord à l'indice [0] de $tab_multi puis nous allons dans le sous tableau à l'indice ['prenom'].
+
+echo '<br>';
+echo $tab_multi[1]['prenom'];
+echo '<br>';
+echo $tab_multi[2]['prenom'];
+echo '<hr>';
+
+// Pour parcourir le tableau multidimensionnel on peut faire une boucle for car ses indices sont numériques:
+
+for ($i =0; $i< count($tab_multi); $i++){ // Tant que $i est inferieur au nombre d'éléments du tableau $tab_multi (soit3)on entre dans la boucle:
+    echo  $tab_multi [$i]['prenom'] . '<br>';//$i va successivement prendre la valeur 0,puis 1 puis 2,cequi permet f'afficher les 3 prénoms.
+}
+echo '<hr>';
+// Exercice: vous affichez les trois prénoms du tableau $tab_multi avec une boucle foreach.
+
+
+foreach( $tab_multi as $indice => $valeur ){
+    echo  $tab_multi [$indice]['prenom'] . ' ' ;
+
+}
+echo '<hr>';
+// OU 
+
+foreach( $tab_multi as $indice => $valeur ){
+    echo  $valeur ['prenom'] . ' ' ;
+
+}
+echo '<hr>';
+
+//Exercice bonus:Vous déclarez un tableau avec les tailles S,L,M,XL.Puis vous affichez les tailles dans un menu déroulant avec une boucle foreach.
+
+
+
+$taille = array('taille S','taille M','taille L','taille XL');
+debug($taille);
+
+foreach($taille as $indice => $valeur){
+    echo $valeur . ' '  ;
+}
+
+
+
+
+// //-------------------------------------------
+// echo '<h2>Inclusions de fichiers </h2>';
+// //-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  
