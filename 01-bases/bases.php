@@ -742,13 +742,24 @@ echo '<hr>';
 
 
 $taille = array('taille S','taille M','taille L','taille XL');
+
 debug($taille);
+
+echo '<form>';
+
+    echo '<label>Taille </label>';
+   
+echo '<select>';
 
 foreach($taille as $indice => $valeur){
     echo $valeur . ' '  ;
 }
+echo '</select>';
+echo '<input type="submit">';
 
+echo '</form>';
 
+echo '<br>';
 
 
 // //-------------------------------------------
