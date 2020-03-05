@@ -13,6 +13,7 @@
 </style>
 
 <?php
+require_once'functions.php';
 
 //----------------------------------
 echo '<h2>Les balises PHP </h2>';
@@ -741,7 +742,7 @@ echo '<hr>';
 
 
 
-$taille = array('taille S','taille M','taille L','taille XL');
+$taille = array('S','M','L','XL');
 
 debug($taille);
 
@@ -752,7 +753,7 @@ echo '<form>';
 echo '<select>';
 
 foreach($taille as $indice => $valeur){
-    echo $valeur . ' '  ;
+    echo '<option>' .  $valeur .  '</option>';
 }
 echo '</select>';
 echo '<input type="submit">';
@@ -762,11 +763,30 @@ echo '</form>';
 echo '<br>';
 
 
-// //-------------------------------------------
-// echo '<h2>Inclusions de fichiers </h2>';
-// //-------------------------------------------
+//-------------------------------------------
+echo '<h2>Inclusions de fichiers </h2>';
+//-------------------------------------------
+echo 'première inclusion:';
+include 'exemple.inc.php';// Permet de faire l'inclusion du fichier dont le chemin est spécifié.En cas d'erreur lors de l'inclusion,"include" génère un warning et continue l'éxécution du script.
+
+echo'<br>';
+
+echo'Deuxième inclusion :';
+include_once 'exemple.inc.php';// Permet de faire l'inclusion du fichier si celui-ci n'a pas encore été inclus.(on l'inclus qu'une seule fois.)
+
+echo'<br>';
+echo'troisième inclusion:';
+require 'exemple.inc.php';// fait l'inclusion du fichier spécifié celui-ci est obligatoire au bon fonctionnement du site:en cas d'erreur lors de l'inclusion,"require" génère une erreur type "fatal" error et stoppe l'execution du script.
+
+echo '<br>';
+
+echo'Quatrième inclusion:';
+require_once 'exemple.inc.php'; //"once" signifie que l'on vérifie si le fichier a déja été inclus.Si c'est le cas ,on le ré-inclut pas.
+
+//Le ".inc" dans le nom du fichier inclus est un indicatif pour préciser aux développeurs que le fichier est destiné à etre inclus,et qu'il ne sagit pas d'une page à part entière.
 
 
+bonjourSamia();
 
 
 
