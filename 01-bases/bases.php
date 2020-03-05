@@ -741,19 +741,18 @@ echo '<hr>';
 
 
 
-$taille = array('taille S','taille M','taille L','taille XL');
+$taille = array('S','M','L','XL');
 
 debug($taille);
 
 echo '<form>';
 
-    echo '<label>Taille </label>';
+echo '<label> Taille </label>';
    
 echo '<select>';
-
-foreach($taille as $indice => $valeur){
-    echo $valeur . ' '  ;
-}
+    foreach($taille as $indice => $valeur){
+        echo '<option>' .  $valeur .  '</option>';
+    }
 echo '</select>';
 echo '<input type="submit">';
 
@@ -762,9 +761,9 @@ echo '</form>';
 echo '<br>';
 
 
-// //-------------------------------------------
-// echo '<h2>Inclusions de fichiers </h2>';
-// //-------------------------------------------
+//-------------------------------------------
+echo '<h2>Inclusions de fichiers </h2>';
+//-------------------------------------------
 
 
 
