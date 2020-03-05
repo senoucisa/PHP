@@ -748,13 +748,19 @@ debug($taille);
 
 echo '<form>';
 
-    echo '<label>Taille </label>';
+echo '<label> Taille </label>';
    
 echo '<select>';
+<<<<<<< HEAD
 
 foreach($taille as $indice => $valeur){
     echo '<option>' .  $valeur .  '</option>';
 }
+=======
+    foreach($taille as $indice => $valeur){
+        echo '<option>' .  $valeur .  '</option>';
+    }
+>>>>>>> e4ad3a16f32be2ac1370f398680963bcc8308295
 echo '</select>';
 echo '<input type="submit">';
 
@@ -766,6 +772,7 @@ echo '<br>';
 //-------------------------------------------
 echo '<h2>Inclusions de fichiers </h2>';
 //-------------------------------------------
+<<<<<<< HEAD
 echo 'première inclusion:';
 include 'exemple.inc.php';// Permet de faire l'inclusion du fichier dont le chemin est spécifié.En cas d'erreur lors de l'inclusion,"include" génère un warning et continue l'éxécution du script.
 
@@ -784,6 +791,8 @@ echo'Quatrième inclusion:';
 require_once 'exemple.inc.php'; //"once" signifie que l'on vérifie si le fichier a déja été inclus.Si c'est le cas ,on le ré-inclut pas.
 
 //Le ".inc" dans le nom du fichier inclus est un indicatif pour préciser aux développeurs que le fichier est destiné à etre inclus,et qu'il ne sagit pas d'une page à part entière.
+=======
+>>>>>>> e4ad3a16f32be2ac1370f398680963bcc8308295
 
 
 bonjourSamia();
