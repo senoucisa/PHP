@@ -18,4 +18,4 @@ if(isset($_GET['article']) && isset($_GET['couleur']) && isset($_GET['prix'])){ 
 } else{
     echo '<p> Produit inexistant.... </p>';
 }
-// $_GET est utlisé dans les boutiques pour afficher le détail d'un produit . En réaliténous passons le numéro du  produit dans l'URL, les informations provenant de la base de données.
+// $_GET est utlisé dans les boutiques pour afficher le détail d'un produit . En réalité nous passons le numéro du  produit dans l'URL, les informations provenant de la base de données.

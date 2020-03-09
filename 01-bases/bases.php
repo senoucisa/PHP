@@ -751,16 +751,10 @@ echo '<form>';
 echo '<label> Taille </label>';
    
 echo '<select>';
-<<<<<<< HEAD
 
 foreach($taille as $indice => $valeur){
     echo '<option>' .  $valeur .  '</option>';
 }
-=======
-    foreach($taille as $indice => $valeur){
-        echo '<option>' .  $valeur .  '</option>';
-    }
->>>>>>> e4ad3a16f32be2ac1370f398680963bcc8308295
 echo '</select>';
 echo '<input type="submit">';
 
@@ -772,7 +766,6 @@ echo '<br>';
 //-------------------------------------------
 echo '<h2>Inclusions de fichiers </h2>';
 //-------------------------------------------
-<<<<<<< HEAD
 echo 'première inclusion:';
 include 'exemple.inc.php';// Permet de faire l'inclusion du fichier dont le chemin est spécifié.En cas d'erreur lors de l'inclusion,"include" génère un warning et continue l'éxécution du script.
 
@@ -791,11 +784,36 @@ echo'Quatrième inclusion:';
 require_once 'exemple.inc.php'; //"once" signifie que l'on vérifie si le fichier a déja été inclus.Si c'est le cas ,on le ré-inclut pas.
 
 //Le ".inc" dans le nom du fichier inclus est un indicatif pour préciser aux développeurs que le fichier est destiné à etre inclus,et qu'il ne sagit pas d'une page à part entière.
-=======
->>>>>>> e4ad3a16f32be2ac1370f398680963bcc8308295
 
 
 bonjourSamia();
+
+
+//----------------------------------------
+echo '<h2>Introduction aux objets </h2>';
+//----------------------------------------
+//un objet est un autre type de donnée (object en anglais).Il represente un objet réel (par exemple une voiture, un personnage,un membre inscrit à votre site,un produit que vous vendez,in panier d'achat...)auquel on peut associer des variables,appelées propriétés,et des fonctions apellées méthodes.
+
+//Pour créer des objets il nous faut un plan de construction:c'est le rôle de la classe (class en anglais).Nous créons ici une classe pour fabriquer des meubles:
+
+//........
+class Meuble {//on met une majuscule à la 1er lettre du nom de la classe
+    public $marque = 'ikea'; // propriété "marque".public permet de préciser que l'élément sera accessiblenpartout.
+
+    public function prix(){
+        return rand(50,200) . '€' ; //rand() est une fonction prédéfinie qui tire un chiffre aléatoire ici entre 50 et 200.
+    }
+
+}
+// on crée une table  à partir de la classe meuble:
+$table = new Meuble();//on crée un objet $table a partir de la classe meuble à l'aide du mot clé "new".On dit que l'on intancie la classe.$table est donc de type objet.
+
+debug($table); //on voit le type object et la seule propriété "marque".
+
+echo 'la marque de notre table est :' . $table->marque . '<br>'; // pour accéder à la propriétés d'un objet,on écrit l'objet suivi de la flèche "->" puis du nom de la propriété SANS le "$".
+
+echo 'Le prix de notre table est de  : ' .$table->prix() . '<br>';//Pour exécuter la méthode d'un objet,on écrit son nom apres la fleche"->" et on lui ajoute une paire de ().
+
 
 
 
