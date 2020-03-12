@@ -2,7 +2,7 @@
 require_once 'inc/init.php';
 
 //traitement du formulaire:
-debug($_POST);
+// debug($_POST);
 
 if(!empty($_POST)){ //si le formulaire a été envoyé,$_POST n'est pas vide
 
@@ -59,9 +59,36 @@ if(!empty($_POST)){ //si le formulaire a été envoyé,$_POST n'est pas vide
                 //on sélectionne le pseudo en BDD:
                 $membre = executeRequete("SELECT * FROM membre WHERE pseudo = :pseudo",array(':pseudo' => $_POST['pseudo']));
 
-                debug($membre);
+                // debug($membre);
+            if($membre->rowCount()> 0) {//si la requete retourne des lignes c'est que le pseudo existe deja .
+                $contenu .= '<div class="alert alert-danger">Le pseudo est indisponible.Veuillez en choisir un autre .</div>';
+            }else {//sinon on inscrit le membre en BDD.
+                $mdp = password_hash($_POST['mdp'],PASSWORD_DEFAULT);//cette fonction prédéfinie permet de hasher le mot de passe selon l'algorithme actuel "bcrypt".Il faudra lors de la connexion comparer le hash de la BDD avec celui du mdp de l'internaute.(hash veut dire transformer en une cle)
+                $succes = executeRequete("INSERT INTO membre (pseudo, mdp, nom, prenom, email, civilite, ville, code_postal, adresse, statut)
+                VALUES (:pseudo, :mdp, :nom, :prenom, :email, :civilite, :ville, :code_postal, :adresse, 0)",
+                array(
+                    ':pseudo'   => $_POST['pseudo'],
+                    ':mdp'      => $mdp, //on prend le mdp hashé.
+                    ':nom'      => $_POST['nom'],
+                    ':prenom'   => $_POST['prenom'],
+                    ':email'    => $_POST['email'],
+                    ':civilite' => $_POST['civilite'],
+                    ':ville'    => $_POST['ville'],
+                    ':code_postal' => $_POST['code_postal'],
+                    ':adresse'  => $_POST['adresse'],
 
-            }//fin du if (empty($contenu))
+                ));
+
+            if($succes){
+                $contenu .= '<div class="alert alert-success">Vous êtes inscrit. <a href="connexion.php">Cliquez ici pour vous connecter.</a></div>';
+
+            }else {
+                $contenu .= '<div class="alert alert-danger">Erreur lors de l\'enregistrement.Veuillez réessayer ultérieurement.</div>';
+            }
+
+        }
+
+    }//fin du if (empty($contenu))
 
 }//fin du if if'(!empty)
 
@@ -80,6 +107,8 @@ require_once 'inc/header.php';
 echo $contenu;  //pour afficher les messages
 ?>
 <form method="post" action="">
+
+
     <div>
         <div><label for="pseudo">Pseudo</label></div>
         <div><input type="text" name="pseudo" id="pseudo" value="<?php echo $_POST['pseudo'] ?? ''  ?>"></div>
@@ -87,7 +116,7 @@ echo $contenu;  //pour afficher les messages
 
     <div>
         <div><label for="mdp">Mot de passe</label></div>
-        <div><input type="text" name="mdp" id="mdp" value=""></div>
+        <div><input type="password" name="mdp" id="mdp" value=""></div>
     </div>
 
     <div>
